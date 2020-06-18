@@ -1,10 +1,22 @@
-package com.codeclan.example.takeawayProject.foods;
+package com.codeclan.example.takeawayProject.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "food")
 public abstract class Food {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private String name;
+
+    @Column
     private double price;
+
+    @Column
     private String description;
 
     public Food(String name, double price, String description) {
