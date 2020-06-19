@@ -1,7 +1,11 @@
 package com.codeclan.example.takeawayProject.components;
 
+import com.codeclan.example.takeawayProject.models.Order;
 import com.codeclan.example.takeawayProject.models.TraditionalMenu;
+import com.codeclan.example.takeawayProject.models.User;
+import com.codeclan.example.takeawayProject.repositories.OrderRepository;
 import com.codeclan.example.takeawayProject.repositories.TraditionalMenuRepository;
+import com.codeclan.example.takeawayProject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -12,6 +16,12 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     TraditionalMenuRepository traditionalMenuRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
 
     public DataLoader() {
@@ -91,6 +101,11 @@ public class DataLoader implements ApplicationRunner {
 
         TraditionalMenu friedPizzaCrunch = new TraditionalMenu("Fried Pizza Crunch", 5.90, 6.80, "Fried Pizza in batter");
         traditionalMenuRepository.save(friedPizzaCrunch);
+
+        User user = new User("Oscar", "Tsang", "123 waterloo st", "ohh@gmail.com", "password");
+        userRepository.save(user);
+        Order order = new Order(user);
+        orderRepository.save(order);
 
     }
 

@@ -1,6 +1,7 @@
 package com.codeclan.example.takeawayProject.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "traditionalMenus")

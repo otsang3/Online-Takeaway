@@ -1,10 +1,16 @@
 package com.codeclan.example.takeawayProject.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "food")
-public abstract class Food {
+public abstract class Food implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +25,21 @@ public abstract class Food {
     @Column
     private String description;
 
+    @JsonIgnoreProperties(value = "foods")
+    @ManyToMany
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "orders_foods",
+            joinColumns = {@JoinColumn(name = "food_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "order_id", nullable = false, updatable = false)}
+    )
+    private List<Order> orders;
+
     public Food(String name, double price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.orders = new ArrayList<>();
     }
 
     public Food() {
@@ -58,5 +75,13 @@ public abstract class Food {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }
