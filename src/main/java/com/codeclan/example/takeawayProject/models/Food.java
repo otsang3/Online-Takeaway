@@ -1,5 +1,6 @@
 package com.codeclan.example.takeawayProject.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "food")
-public abstract class Food implements Serializable {
+public abstract class Food {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,13 +1,14 @@
 package com.codeclan.example.takeawayProject.models;
 
-import com.sun.istack.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +32,8 @@ public class User implements Serializable {
     @Column
     private int cardNumber;
 
-    @OneToOne(fetch = FetchType.LAZY,
+    @JsonIgnoreProperties(value = "users")
+    @OneToOne(
               cascade = CascadeType.ALL,
               mappedBy = "user")
     private Order order;
@@ -42,6 +44,7 @@ public class User implements Serializable {
         this.address = address;
         this.email = email;
         this.password = password;
+        this.order = null;
     }
 
     public User() {
@@ -101,5 +104,13 @@ public class User implements Serializable {
 
     public void setCardNumber(int cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

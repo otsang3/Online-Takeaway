@@ -106,6 +106,9 @@ public class DataLoader implements ApplicationRunner {
         userRepository.save(user);
         Order order = new Order(user);
         orderRepository.save(order);
+        order.addFood(friedPizzaCrunch);
+        orderRepository.save(order);
+
 
     }
 
