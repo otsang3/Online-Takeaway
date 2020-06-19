@@ -10,10 +10,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "firstName")
+    @Column
     private String firstName;
 
     @Column
@@ -33,7 +32,7 @@ public class User {
 
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Order order;
 
     public User(String firstName, String lastName, String address, String email, String password) {

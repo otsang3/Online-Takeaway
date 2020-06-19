@@ -13,7 +13,6 @@ public class Order implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @OneToOne(mappedBy = "order")
@@ -62,6 +61,18 @@ public class Order implements Serializable{
 
     public void addFood(Food food){
         this.foods.add(food);
+    }
+
+    public void clearOrder(){
+        this.foods = new ArrayList<>();
+    }
+
+    public double orderTotal(){
+        double total = 0.00;
+        for (Food food : this.foods) {
+            total += food.getPrice();
+        }
+        return total;
     }
 
 

@@ -34,6 +34,11 @@ class TakeawayProjectApplicationTests {
 		Order order = new Order(user);
 		order.addFood(food);
 		assertEquals(1, order.getFoods().size());
+		assertEquals(5.70, order.orderTotal());
+		order.clearOrder();
+		assertEquals(0, order.getFoods().size());
+
 	}
+
 
 }
