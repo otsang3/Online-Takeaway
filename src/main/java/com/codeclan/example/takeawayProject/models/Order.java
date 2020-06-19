@@ -1,8 +1,5 @@
 package com.codeclan.example.takeawayProject.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -16,13 +13,13 @@ public class Order implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @OneToOne(mappedBy = "order")
     private User user;
 
-    @JsonIgnoreProperties(value = "orders")
+
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(
@@ -66,6 +63,8 @@ public class Order implements Serializable{
     public void addFood(Food food){
         this.foods.add(food);
     }
+
+
 
 
 }

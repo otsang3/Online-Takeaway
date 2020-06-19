@@ -10,34 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/orders")
 public class OrderController {
 
     @Autowired
     OrderRepository orderRepository;
 
-    @GetMapping(value = "/order")
+    @GetMapping
     public ResponseEntity<List<Order>> getAllOrder(){
         return new ResponseEntity<>(orderRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/order/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity getOrder(@PathVariable Long id) {
         return new ResponseEntity<>(orderRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/order")
+    @PostMapping
     public ResponseEntity<Order> postOrder(@RequestBody Order order) {
         orderRepository.save(order);
         return new ResponseEntity<>(order, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/order/{id}")
+    @PatchMapping(value = "/{id}")
     public ResponseEntity<Order> updateOrder(@RequestBody Order order) {
         orderRepository.save(order);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/order/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<Order> deleteOrder(@PathVariable Long id){
         Order found = orderRepository.getOne(id);
         orderRepository.delete(found);

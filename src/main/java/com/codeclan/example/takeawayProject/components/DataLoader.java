@@ -103,7 +103,9 @@ public class DataLoader implements ApplicationRunner {
         traditionalMenuRepository.save(friedPizzaCrunch);
 
         User user = new User("Oscar", "Tsang", "123 waterloo st", "ohh@gmail.com", "password");
+        User user2 = new User("Kira", "Tsang", "123 waterloo st", "ohh@gmail.com", "password");
         userRepository.save(user);
+        userRepository.save(user2);
         Order order = new Order(user);
         orderRepository.save(order);
         order.addFood(friedPizzaCrunch);

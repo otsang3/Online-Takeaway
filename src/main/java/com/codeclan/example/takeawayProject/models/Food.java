@@ -1,16 +1,15 @@
 package com.codeclan.example.takeawayProject.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "food")
+@JsonIgnoreProperties(value = "orders")
 public abstract class Food {
 
     @Id
@@ -26,7 +25,7 @@ public abstract class Food {
     @Column
     private String description;
 
-    @JsonIgnoreProperties(value = "foods")
+
     @ManyToMany
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinTable(

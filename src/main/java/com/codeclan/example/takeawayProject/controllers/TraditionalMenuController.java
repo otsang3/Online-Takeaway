@@ -10,34 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/traditionalmenu")
 public class TraditionalMenuController {
 
     @Autowired
     TraditionalMenuRepository traditionalMenuRepository;
 
-    @GetMapping(value = "/traditionalmenu")
+    @GetMapping
     public ResponseEntity<List<TraditionalMenu>> getAllTraditionalMenu(){
         return new ResponseEntity<>(traditionalMenuRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/traditionalmenu/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity getTraditionalMenu(@PathVariable Long id) {
         return new ResponseEntity<>(traditionalMenuRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/traditionalmenu")
+    @PostMapping
     public ResponseEntity<TraditionalMenu> postTraditionalMenu(@RequestBody TraditionalMenu traditionalMenu) {
         traditionalMenuRepository.save(traditionalMenu);
         return new ResponseEntity<>(traditionalMenu, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/traditionalmenu/{id}")
+    @PatchMapping(value = "/{id}")
     public ResponseEntity<TraditionalMenu> updateTraditionalMenu(@RequestBody TraditionalMenu traditionalMenu) {
         traditionalMenuRepository.save(traditionalMenu);
         return new ResponseEntity<>(traditionalMenu, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/traditionalmenu/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<TraditionalMenu> deleteTraditionalMenu(@PathVariable Long id){
         TraditionalMenu found = traditionalMenuRepository.getOne(id);
         traditionalMenuRepository.delete(found);

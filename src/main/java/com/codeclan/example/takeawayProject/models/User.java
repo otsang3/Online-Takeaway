@@ -1,20 +1,19 @@
 package com.codeclan.example.takeawayProject.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
+@JsonIgnoreProperties(value = "order")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @Column
+    @Column(name = "firstName")
     private String firstName;
 
     @Column
@@ -32,10 +31,9 @@ public class User {
     @Column
     private int cardNumber;
 
-    @JsonIgnoreProperties(value = "users")
-    @OneToOne(
-              cascade = CascadeType.ALL,
-              mappedBy = "user")
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
     public User(String firstName, String lastName, String address, String email, String password) {
@@ -113,4 +111,6 @@ public class User {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+
 }

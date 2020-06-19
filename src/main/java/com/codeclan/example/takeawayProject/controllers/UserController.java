@@ -10,34 +10,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/users")
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping(value = "/user")
+    @GetMapping
     public ResponseEntity<List<User>> getAllUser(){
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity getUser(@PathVariable Long id) {
         return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user")
+    @PostMapping
     public ResponseEntity<User> postUser(@RequestBody User user) {
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/user/{id}")
+    @PatchMapping(value = "/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user) {
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id){
         User found = userRepository.getOne(id);
         userRepository.delete(found);
